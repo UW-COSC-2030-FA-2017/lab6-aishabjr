@@ -1,3 +1,8 @@
+/*
+Aisha Balogun Mohammed 
+23rd October, 2017
+*/
+
 // SortedDriver.cpp
 
 // tom bailey   1445  25 mar 2014
@@ -12,6 +17,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
 
 using namespace std;
@@ -63,8 +69,93 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	// STUB  STUB  STUB
-	return -123.456;
+	double iso = 0.0;
+	double left = 0;
+	double right = 0;
+	double diff = 0.00001;
+	double closest = 0;
+	for (int i = 0; i < number.size()-1; i++)
+	{
+		if (i == 0)
+		{
+			left = 0;
+			right = (fabs(number[i]) - fabs(number[i + 1]));
+			diff = right;
+		}
+
+		if (i > 0)
+		{
+			if (i == number.size() - 1)
+			{
+				left = (fabs(number[i]) - fabs(number[i - 1]));
+				right = 0;
+				diff = left;
+			}
+
+			if (number[i] < 0 && number[i + 1] < 0)
+			{
+				left = (fabs(number[i - 1]) - fabs(number[i]));
+				right = (fabs(number[i]) - fabs(number[i + 1]));
+				if (left > right)
+				{
+					diff = right;
+				}
+				else
+				{
+					diff = left;
+				}
+					
+			}
+			if ((number[i] > 0) && (number[i + 1] > 0))
+			{
+				left = (fabs(number[i]) - fabs(number[i - 1]));
+				right = (fabs(number[i + 1]) - fabs(number[i]));
+				if (left > right)
+				{
+					diff = right;
+				}
+				else
+				{
+					diff = left;
+				}
+			}
+
+			if ((number[i] < 0) && (number[i + 1] > 0))
+			{
+				left = (fabs(number[i - 1]) - fabs(number[i]));
+				right = (fabs(number[i + 1]) + fabs(number[i]));
+				if (left > right)
+				{
+					diff = right;
+				}
+				else
+				{
+					diff = left;
+				}
+			}
+			if ((number[i] > 0) && (number[i - 1] < 0))
+			{
+				left = (fabs(number[i - 1]) + fabs(number[i]));
+				right = (fabs(number[i + 1]) - fabs(number[i]));
+				if (left > right)
+				{
+					diff = right;
+				}
+				else
+				{
+					diff = left;
+				}
+			}
+
+		}
+
+		if (diff > closest)
+		{
+			closest = diff;
+			iso = number[i];
+		}
+	}
+	return iso;
 }
 
 
@@ -74,7 +165,6 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
 	return -1;
 }
 
