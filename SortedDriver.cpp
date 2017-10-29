@@ -100,7 +100,7 @@ mostIsolated(vector<double> & number)
 				{
 					diff = right;
 				}
-				else
+				if (left <= right)
 				{
 					diff = left;
 				}
@@ -114,7 +114,7 @@ mostIsolated(vector<double> & number)
 				{
 					diff = right;
 				}
-				else
+				if (left <= right)
 				{
 					diff = left;
 				}
@@ -128,7 +128,7 @@ mostIsolated(vector<double> & number)
 				{
 					diff = right;
 				}
-				else
+				if (left <= right)
 				{
 					diff = left;
 				}
@@ -141,7 +141,7 @@ mostIsolated(vector<double> & number)
 				{
 					diff = right;
 				}
-				else
+				if (left <= right)
 				{
 					diff = left;
 				}
@@ -165,7 +165,28 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	return -1;
+	int same = 0;
+	B.unique();
+	std::list<string>::iterator itA = A.begin();
+	std::list<string>::iterator itB = B.begin();
+	while (itA!= A.end() && itB!= B.end())
+	{
+			if (*itA == *itB)
+			{
+				same++;
+				itA++;
+			}
+			else if (*itA > *itB)
+			{
+				itB++;
+			}
+			else if (*itA < *itB)
+			{
+				itA++;
+			}
+		}
+	cout << "same: " << same << endl;
+	return (A.size() - same);
 }
 
 
