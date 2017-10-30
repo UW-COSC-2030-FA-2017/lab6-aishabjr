@@ -9,16 +9,14 @@ Aisha Balogun Mohammed
 // Construct sorted sequences and call functions that 
 //   process the sorted sequences.
 
-
 #include "RandomUtilities.h"
 #include "ContainerPrinting.h"
 #include "winTimer.h"
 #include <list>
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <math.h>
-
+//#include <algorithm>
+//#include <math.h>
 
 using namespace std;
 
@@ -69,90 +67,47 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	double iso = 0.0;
-	double left = 0;
+	double iso = 0.0; 
+	double left = 0; 
 	double right = 0;
-	double diff = 0.00001;
+	double diff = 0.00001; 
 	double closest = 0;
-	for (int i = 0; i < number.size()-1; i++)
+	int size = number.size();
+	for (int i = 0; i <size; i++)
 	{
-		if (i == 0)
-		{
-			left = 0;
-			right = (fabs(number[i]) - fabs(number[i + 1]));
-			diff = right;
-		}
+		double numi = number[i];
 
-		if (i > 0)
+		if (i > 0 && i != (size - 1))
 		{
-			if (i == number.size() - 1)
+			double numip = number[i + 1];
+			double numim = number[i - 1];
+
+			left = numi - numim;
+			right = numip - numi;
+
+			if (left > right)
 			{
-				left = (fabs(number[i]) - fabs(number[i - 1]));
-				right = 0;
+				diff = right;
+			}
+			else
+			{
 				diff = left;
 			}
-
-			if (number[i] < 0 && number[i + 1] < 0)
-			{
-				left = (fabs(number[i - 1]) - fabs(number[i]));
-				right = (fabs(number[i]) - fabs(number[i + 1]));
-				if (left > right)
-				{
-					diff = right;
-				}
-				if (left <= right)
-				{
-					diff = left;
-				}
-					
-			}
-			if ((number[i] > 0) && (number[i + 1] > 0))
-			{
-				left = (fabs(number[i]) - fabs(number[i - 1]));
-				right = (fabs(number[i + 1]) - fabs(number[i]));
-				if (left > right)
-				{
-					diff = right;
-				}
-				if (left <= right)
-				{
-					diff = left;
-				}
-			}
-
-			if ((number[i] < 0) && (number[i + 1] > 0))
-			{
-				left = (fabs(number[i - 1]) - fabs(number[i]));
-				right = (fabs(number[i + 1]) + fabs(number[i]));
-				if (left > right)
-				{
-					diff = right;
-				}
-				if (left <= right)
-				{
-					diff = left;
-				}
-			}
-			if ((number[i] > 0) && (number[i - 1] < 0))
-			{
-				left = (fabs(number[i - 1]) + fabs(number[i]));
-				right = (fabs(number[i + 1]) - fabs(number[i]));
-				if (left > right)
-				{
-					diff = right;
-				}
-				if (left <= right)
-				{
-					diff = left;
-				}
-			}
-
+		}
+		else if (i == 0)
+		{
+			diff = (number[i+1]) - numi;
+		}
+			
+		else if (i == (size - 1))
+		{
+			diff = numi - (number[i - 1]);
 		}
 
 		if (diff > closest)
 		{
 			closest = diff;
-			iso = number[i];
+			iso = numi;
 		}
 	}
 	return iso;
@@ -185,7 +140,6 @@ unmatched(list<string> & A, list<string> & B)
 				itA++;
 			}
 		}
-	cout << "same: " << same << endl;
 	return (A.size() - same);
 }
 
